@@ -18,5 +18,6 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   multipleStatements: true,
   migrations: [__dirname + "/../database/migrations/*.{js,ts}"],
   migrationsRun: true,
+  connectTimeout: 30000,
 };
 
