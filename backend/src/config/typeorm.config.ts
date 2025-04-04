@@ -7,8 +7,8 @@ import { Preset } from "src/presets/entities/preset.entity";
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: process.env.DB_TYPE as any,
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT, 10),
+  host: process.env.DB_HOST || 'mariadb',
+  port: parseInt(process.env.DB_PORT, 10) || 3306,
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
