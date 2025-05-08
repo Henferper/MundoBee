@@ -11,11 +11,19 @@ async function bootstrap() {
     .setTitle("API Documentation")
     .setDescription("API description")
     .setVersion("1.0")
-    .addSecurity("basic", {
-      type: "http",
-      scheme: "basic",
-    })
-    .addBasicAuth()
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT', // Opcional, apenas informativo
+      },
+      'bearer' // Nome da chave de segurança
+    )
+  //   .addSecurity("basic", {
+  //     type: "http",
+  //     scheme: "basic",
+  //   })
+  //   .addBasicAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   app.enableCors({
