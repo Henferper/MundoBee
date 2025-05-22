@@ -1,38 +1,35 @@
 FROM node:18 AS build
 
-# Define o diretório de trabalho
-WORKDIR /usr/client/src/app
+WORKDIR /usr/src/app
 
-# Copia os arquivos de definição de dependências
+# Copia os arquivos de definição
 COPY client/package*.json ./
 
-# Instala todas as dependências
+# Instala as dependências
 RUN npm install
 
-# Copia o restante dos arquivos do projeto
+# Copia o restante do projeto
 COPY client ./
 
-# Gera a build
+# Compila a aplicação
 RUN npm run build
 
-# Prod
+# Etapa de produção
 FROM node:18-slim AS production
 
-# Define o diretório de trabalho
-WORKDIR /usr/client/src/app
+WORKDIR /usr/src/app
 
-# Copia apenas os arquivos necessários da fase de build
-COPY --from=build /usr/client/src/app/package*.json ./
-COPY --from=build /usr/client/src/app/node_modules ./node_modules
-COPY --from=build /usr/client/src/app/.next ./.next
+# Copia artefatos da build
+COPY --from=build /usr/src/app/package*.json ./
+COPY --from=build /usr/src/app/node_modules ./node_modules
+COPY --from=build /usr/src/app/.next ./.next
+COPY --from=build /usr/src/app/public ./public
 
-# Remove as dependências de desenvolvimento
+# Remove dependências de desenvolvimento
 RUN npm prune --production
 
-# Expõe a porta para o Next.js
 EXPOSE 3000
 
 USER node
 
-# Comando para iniciar a aplicação
 CMD ["npm", "start"]
