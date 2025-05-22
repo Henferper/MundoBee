@@ -113,7 +113,7 @@ services:
     ports:
       - ${FRONT_PORT}:${FRONT_PORT}
     volumes:
-      - ./client:/usr/src/app
+      - ./client:/app
     restart: always
     networks:
       - frontend
