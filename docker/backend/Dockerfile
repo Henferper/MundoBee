@@ -29,8 +29,8 @@ COPY backend/package*.json ./
 RUN npm install --only=production
 
 # Copia apenas os arquivos necessários para a produção
-COPY --from=development /usr/src/app/dist ./dist
-COPY --from=development /usr/src/app/node_modules ./node_modules
+COPY --from=development /usr/backend/src/app/dist ./dist
+COPY --from=development /usr/backend/src/app/node_modules ./node_modules
 
 # Comando para iniciar a aplicação
 CMD ["node", "dist/main"]
