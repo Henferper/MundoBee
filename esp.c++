@@ -9,10 +9,10 @@
 
 // Configurações da rede WiFi
 const char* ssid = "WIFI_ADM_CFP402";
-const char* password = "ac4ce0ss2";
+const char* password = "ac4ce0ss2"
 
 // Configurações do MQTT
-const char* mqtt_server = "10.109.3.210";
+const char* mqtt_server = "192.168.1.100";
 const char* mqtt_topic = "device/550e8400-e29b-41d4-a716-446655440000";
 
 // Configurações da rede WiFi alternativa (comentei para evitar confusão)
