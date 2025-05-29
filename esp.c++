@@ -9,25 +9,17 @@
 
 // Configurações da rede WiFi
 const char* ssid = "WIFI_ADM_CFP402";
-const char* password = "ac4ce0ss2"
+const char* password = "ac4ce0ss2";
 
 // Configurações do MQTT
-const char* mqtt_server = "192.168.1.100";
+const char* mqtt_server = "10.109.3.226";
 const char* mqtt_topic = "device/550e8400-e29b-41d4-a716-446655440000";
-
-// Configurações da rede WiFi alternativa (comentei para evitar confusão)
-/*
-const char* ssid = "Sabrina Q";
-const char* password = "Casaitape";
-const char* mqtt_server = "mundobee.ddns.net";
-const char* mqtt_topic = "device/6be3392c-3344-44de-b70d-6e99dea554e5";
-*/
 
 WiFiClient espClient;
 PubSubClient client(espClient);
 
 // Configurações do temporizador
-const long interval = 1000 * 10 * 60; // 10 minutos em milissegundos
+const long interval = 1000 * 10; // 10 minutos em milissegundos
 unsigned long previousMillis = 0;
 
 // Variáveis para armazenar as contagens acumuladas
@@ -138,6 +130,7 @@ void setup() {
   Serial.begin(115200);
   setup_wifi();
   client.setServer(mqtt_server, 1883);
+  client.setKeepAlive(60);
 
   // Configura os pinos dos sensores IR como entrada
   pinMode(IRSensor1, INPUT);
