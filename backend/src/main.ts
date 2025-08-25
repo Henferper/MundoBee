@@ -31,6 +31,6 @@ async function bootstrap() {
     origin: "*",
   });
   SwaggerModule.setup("api", app, document);
-  await app.listen(3333);
+  await app.listen(3333,'0.0.0.0');
 }
 bootstrap();
