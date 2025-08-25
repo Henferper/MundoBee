@@ -22,12 +22,12 @@ type Data = {
 
 export default function Device({ device, edit = false }: DeviceProps) {
   const [data, setData] = useState<Data>({
-    temperature: [Data.temperature],
-    outsideHumidity: [Data.outsideHumidity],
-    outsideTemp: [Data.outsideTemp],
-    humidity: [Data.humidity],
-    inCount: [Data.inCount],
-    outCount: [Data.outCount],
+    temperature: 0,
+    outsideHumidity: 0,
+    outsideTemp: 0,
+    humidity: 0,
+    inCount: 0,
+    outCount: 0,
   });
   const [online, setOnline] = useState(false); // Estado para controlar o status online
   const socketRef = useRef<Socket | null>(null);
