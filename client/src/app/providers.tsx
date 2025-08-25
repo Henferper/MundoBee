@@ -16,7 +16,7 @@ export default function Providers({ children }: { children: ReactNode }) {
             attribute="class"
             defaultTheme="system"
             enableSystem
-            themes={["orange", "purple", "green", "dark"]}
+            themes={["orange", "yellow", "green", "dark"]}
           >
             {children}
             <ReactQueryDevtools initialIsOpen={false} />
