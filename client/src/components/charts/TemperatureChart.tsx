@@ -83,7 +83,6 @@ export default function TemperatureChart({
       },
       xaxis: {
         type: "datetime",
-        tickAmount: getTickAmount(actualZoom),
         tickPlacement: "on",
         labels: {
           style: {
