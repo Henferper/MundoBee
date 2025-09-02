@@ -10,7 +10,7 @@ const char* ssid = "WIFI_ADM_CFP402";
 const char* password = "ac4ce0ss2";
 
 // Configurações do MQTT
-const char* mqtt_server = "10.109.3.89";
+const char* mqtt_server = "10.109.3.178";
 const char* mqtt_topic = "device/7c05b858-3f77-4c52-a226-7887b7339e16";
 
 char* peltier_status = " ";
@@ -199,53 +199,53 @@ void loop() {
         digitalWrite(IN2, LOW);
         digitalWrite(VENTOINHA, LOW);
         seguranca = 1;
-        peltier_status = "off:seg.";
+        peltier_status = "off(seg.)   ";
     }else if(temperature >=34 && temperature <= 36 && seguranca == 0){//Parar o Peltier
         digitalWrite(IN1, LOW);
         digitalWrite(IN2, LOW);
         digitalWrite(VENTOINHA, LOW);
-        peltier_status = "off";
+        peltier_status = "off         ";
     } else if (temperature <= 34 && seguranca == 0) {//Aquecimento
         digitalWrite(IN1, HIGH); 
         digitalWrite(IN2, LOW);
         digitalWrite(VENTOINHA, HIGH);
-        peltier_status = "on(aquec)";
+        peltier_status = "on(aquec)   ";
     } else if (temperature >= 36 && seguranca == 0){//Esfriamento
         digitalWrite(IN1, LOW); 
         digitalWrite(IN2, HIGH);
         digitalWrite(VENTOINHA, HIGH);
-        peltier_status =" on(esfri)";
+        peltier_status = "on(esfri)   ";
     }
 
   lcd.setCursor(0, 0);
   lcd.print("TIN:");
   lcd.print(temperature,1);
-  lcd.print("C");
+  lcd.print("C ");
 
   lcd.setCursor(0, 1);
   lcd.print("TEN:");
   lcd.print(outsideTemp,1);
-  lcd.print("C");
+  lcd.print("C ");
 
   lcd.setCursor(0, 2);
   lcd.print("TEX:");
   lcd.print(externalTemp,1);
-  lcd.print("C");
+  lcd.print("C ");
 
   lcd.setCursor(10, 0);
   lcd.print("UIN:");
   lcd.print(humidity,1);
-  lcd.print("%");
+  lcd.print("% ");
 
   lcd.setCursor(10, 1);
   lcd.print("UEN:");
   lcd.print(outsideHumidity,1);
-  lcd.print("%");
+  lcd.print("% ");
 
   lcd.setCursor(10, 2);
   lcd.print("UEX:");
   lcd.print(externalHumidity,1);
-  lcd.print("%");
+  lcd.print("% ");
 
   lcd.setCursor(0, 3);
   lcd.print("PELTIER:");
