@@ -4,7 +4,7 @@ import { DateTime } from "luxon";
 import { Label } from "../ui/label";
 
 const dateFormatter = (dateString: string) => {
-  return DateTime.fromISO(dateString).toUTC().toFormat("dd LLL HH:mm");
+  return DateTime.fromISO(dateString).toUTC().toFormat("HH:mm");
 };
 
 export function AreaChartHero({
