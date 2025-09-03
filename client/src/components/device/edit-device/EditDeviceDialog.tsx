@@ -1,14 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "../../ui/button";
-import { SubmitButton } from "../shared/SubmitButton";
 import { DeviceDialog } from "../shared/DeviceDialog";
 import { BaseDeviceForm } from "../shared/BaseDeviceForm";
-import { CancelButton } from "../shared/CancelButton";
 import { useEditDeviceForm } from "./useEditDeviceForm";
 import { FormProvider } from "react-hook-form";
 import { IsOnSwitch } from "../shared/IsOnSwitch";
 import { Device } from "@/types";
+import { EditableDeviceFooter } from "../shared/EditableDeviceFooter";
 
 interface EditDeviceDialogProps {
   device?: Device;
@@ -43,10 +42,7 @@ export default function EditDeviceDialog({ device }: EditDeviceDialogProps) {
     >
       <BaseDeviceForm/>
       <IsOnSwitch />
-      <div className="flex gap-3 pt-10 justify-end">
-          <CancelButton onClick={() => setOpen(false)}>Cancelar</CancelButton>
-          <SubmitButton>Salvar</SubmitButton>
-      </div>
+      <EditableDeviceFooter onCancel={() => setOpen(false)} />
     </DeviceDialog>
   </FormProvider>
   );

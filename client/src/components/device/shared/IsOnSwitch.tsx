@@ -23,6 +23,7 @@ export function IsOnSwitch({ disabled }: { disabled?: boolean }) {
                     <FormLabel>Ativo</FormLabel>
                   <FormControl>
                     <Switch
+                      className="data-[state=checked]:bg-green-500"
                       disabled={disabled}
                       checked={field.value}
                       onCheckedChange={field.onChange}

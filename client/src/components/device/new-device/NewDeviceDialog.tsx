@@ -2,11 +2,10 @@
 import React, { useState } from "react";
 import { Button } from "../../ui/button";
 import { useNewDeviceForm } from "./useNewDeviceForm";
-import { SubmitButton } from "../shared/SubmitButton";
 import { DeviceDialog } from "../shared/DeviceDialog";
 import { BaseDeviceForm } from "../shared/BaseDeviceForm";
-import { CancelButton } from "../shared/CancelButton";
 import { FormProvider } from "react-hook-form";
+import { EditableDeviceFooter } from "../shared/EditableDeviceFooter";
 
 export default function NewDeviceDialog() {
   const [open, setOpen] = useState(false);
@@ -40,10 +39,7 @@ export default function NewDeviceDialog() {
       onOpenChange={handleDialogChange}
     >
       <BaseDeviceForm/>
-      <div className="flex gap-3 pt-10 justify-end">
-          <CancelButton onClick={() => setOpen(false)}>Cancelar</CancelButton>
-          <SubmitButton>Salvar</SubmitButton>
-      </div>
+      <EditableDeviceFooter onCancel={() => setOpen(false)} />
     </DeviceDialog>
   </FormProvider>
   );
