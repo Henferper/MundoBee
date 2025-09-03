@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useFormContext } from "react-hook-form";
+import { Spinner } from "./Spinner";
 
 interface DeviceFooterProps {
   onCancel: () => void;
@@ -24,9 +25,7 @@ export function EditableDeviceFooter({ onCancel }: DeviceFooterProps) {
       className="submit-button w-32 bg-primary text-secondary py-2 rounded-md"
     >
       {isSubmitting ? (
-        <div className="flex items-center justify-center">
-          <div className="w-4 h-4 border-2 border-secondary border-t-transparent rounded-full animate-spin"></div>
-        </div>
+        <Spinner />
       ) : (
         "Salvar"
       )}

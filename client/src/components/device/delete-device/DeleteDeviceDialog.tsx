@@ -13,6 +13,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../../ui/alert-dialog";
+import { Spinner } from "../shared/Spinner";
 
 interface DeleteDeviceDialogProps {
   device?: Device;
@@ -43,7 +44,7 @@ export default function DeleteDeviceDialog({ device }: DeleteDeviceDialogProps) 
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Excluir dispositivo</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogDescription className="py-4">
             Tem certeza que deseja excluir o dispositivo &quot;{device?.name}&quot;? Esta ação não pode ser desfeita e todos os dados associados serão perdidos.
           </AlertDialogDescription>
         </AlertDialogHeader>
@@ -56,9 +57,7 @@ export default function DeleteDeviceDialog({ device }: DeleteDeviceDialogProps) 
               className="w-20"
             >
               {isDeleting ? (
-                <div className="flex items-center justify-center">
-                  <div className="w-4 h-4 border-2 border-secondary border-t-transparent rounded-full animate-spin"></div>
-                </div>
+                <Spinner />
               ) : (
                 "Excluir"
               )}
