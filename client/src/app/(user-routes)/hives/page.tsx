@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import Device from "@/components/device";
 import Header from "@/components/header";
-import NewDeviceDialog from "@/components/new-device-dialog";
+import NewDeviceDialog from "@/components/device/new-device/NewDeviceDialog";
 import { useAuth } from "@/context/authContext";
 import { useQuery } from "@tanstack/react-query";
 import { useAxios } from "@/helper/hooks/useAxios";
@@ -26,10 +26,6 @@ export default function Home() {
     },
     enabled: !!user?.sub,
   });
-
-  useEffect(() => {
-    console.log(data);
-  }, [data, error]);
 
   return (
     <div className="flex h-screen flex-col gap-3">
