@@ -5,20 +5,6 @@ import { DeviceDialog } from "../shared/DeviceDialog";
 import { FormProvider } from "react-hook-form";
 import { Device } from "@/types";
 import { useEditDeviceForm } from "../edit-device/useEditDeviceForm";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "../../ui/form";
-import { Input } from "../../ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../../ui/select";
 import { BaseDeviceForm } from "../shared/BaseDeviceForm";
 import { IsOnSwitch } from "../shared/IsOnSwitch";
 
@@ -45,7 +31,7 @@ export default function ViewDeviceDialog({ device }: ViewDeviceDialogProps) {
         <p> Criado em {new Date().toLocaleDateString()}</p>
         </div>
         <div className="flex gap-3 pt-10 justify-end">
-          <Button variant="outline" onClick={() => setOpen(false)}>
+          <Button variant="outline" onClick={() => setOpen(false)} className="text-foreground">
             Fechar
           </Button>
         </div>

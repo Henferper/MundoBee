@@ -6,6 +6,7 @@ import { Device as DeviceType } from "@/types";
 import { io, Socket } from "socket.io-client";
 import EditDeviceDialog from "./device/edit-device/EditDeviceDialog";
 import ViewDeviceDialog from "./device/view-device/ViewDeviceDialog";
+import DeleteDeviceDialog from "./device/delete-device/DeleteDeviceDialog";
 
 type DeviceProps = {
   device?: DeviceType;
@@ -149,7 +150,10 @@ export default function Device({ device, edit = false }: DeviceProps) {
       <CardFooter className="flex items-center justify-between">
           <ViewDeviceDialog device={device} />
         {edit && (
+          <div className="flex flex-row gap-x-3">
           <EditDeviceDialog device={device} />
+          <DeleteDeviceDialog device={device} />
+          </div>
         )}
       </CardFooter>
     </Card>
