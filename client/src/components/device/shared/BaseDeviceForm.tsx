@@ -62,7 +62,7 @@ export const BaseDeviceForm = ({ disabled = false }: BaseDeviceFormProps) => {
             <Select
               disabled={disabled}
               onValueChange={field.onChange}
-              value={field.value} // Use value instead of defaultValue
+              value={field.value}
             >
               <FormControl>
                 <SelectTrigger>

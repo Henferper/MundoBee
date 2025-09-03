@@ -20,7 +20,6 @@ export default function EditDeviceDialog({ device }: EditDeviceDialogProps) {
 
   const onSubmit = form.handleSubmit(async (data) => {
     await new Promise(resolve => setTimeout(resolve, 2000));
-    form.reset();
     setOpen(false);
   });
 

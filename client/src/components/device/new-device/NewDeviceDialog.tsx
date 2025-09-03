@@ -22,9 +22,7 @@ export default function NewDeviceDialog() {
   const handleDialogChange = (isOpen: boolean) => {
     setOpen(isOpen);
     if (!isOpen) {
-      setTimeout(() => {
-        form.reset();
-      }, 300);
+      form.reset();
     }
   };
 

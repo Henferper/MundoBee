@@ -5,7 +5,7 @@ import { newDeviceSchema, newDeviceType } from "./validator";
 export const useNewDeviceForm = () => {
   const form = useForm<newDeviceType>({
     resolver: zodResolver(newDeviceSchema),
-    mode: "onBlur",
+    mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
       name: "",
