@@ -43,7 +43,6 @@ export default function EditDeviceDialog({ device }: EditDeviceDialogProps) {
     >
       <BaseDeviceForm/>
       <IsOnSwitch />
-
       <div className="flex gap-3 pt-10 justify-end">
           <CancelButton onClick={() => setOpen(false)}>Cancelar</CancelButton>
           <SubmitButton>Salvar</SubmitButton>

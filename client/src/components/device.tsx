@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { Device as DeviceType } from "@/types";
 import { io, Socket } from "socket.io-client";
 import EditDeviceDialog from "./device/edit-device/EditDeviceDialog";
+import ViewDeviceDialog from "./device/view-device/ViewDeviceDialog";
 
 type DeviceProps = {
   device?: DeviceType;
@@ -146,9 +147,7 @@ export default function Device({ device, edit = false }: DeviceProps) {
         </div>
       </CardContent>
       <CardFooter className="flex items-center justify-between">
-        <Button size="sm" variant="outline">
-          Ver Detalhes
-        </Button>
+          <ViewDeviceDialog device={device} />
         {edit && (
           <EditDeviceDialog device={device} />
         )}

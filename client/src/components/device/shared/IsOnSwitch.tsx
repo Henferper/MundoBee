@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/form"
 import { Switch } from "@/components/ui/switch"
 
-export function IsOnSwitch() {
+export function IsOnSwitch({ disabled }: { disabled?: boolean }) {
   const form = useFormContext();
 
   return (
@@ -19,10 +19,11 @@ export function IsOnSwitch() {
               control={form.control}
               name="is_active"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-center gap-3">
+                <FormItem className="flex flex-row items-center gap-x-3">
                     <FormLabel>Ativo</FormLabel>
                   <FormControl>
                     <Switch
+                      disabled={disabled}
                       checked={field.value}
                       onCheckedChange={field.onChange}
                     />
@@ -30,6 +31,6 @@ export function IsOnSwitch() {
                 </FormItem>
               )}
             />
-        </div>
+          </div>
   )
 }

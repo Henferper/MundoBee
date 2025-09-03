@@ -18,6 +18,9 @@ import {
 } from "../../ui/select";
 import { useFormContext } from "react-hook-form";
 
+interface BaseDeviceFormProps {
+  disabled?: boolean;
+}
 
 const PRESET_OPTIONS = [
   { value: "apis-mellifera", label: "Apis mellifera" },
@@ -27,11 +30,11 @@ const PRESET_OPTIONS = [
   { value: "custom", label: "Personalizado" },
 ];
 
-export const BaseDeviceForm = () => {
+export const BaseDeviceForm = ({ disabled = false }: BaseDeviceFormProps) => {
   const form = useFormContext();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 ">
       <FormField
         control={form.control}
         name="name"
@@ -41,6 +44,7 @@ export const BaseDeviceForm = () => {
             <FormControl>
               <Input
                 placeholder="Colmeia BEEthoven"
+                disabled={disabled}
                 {...field}
               />
             </FormControl>
@@ -56,6 +60,7 @@ export const BaseDeviceForm = () => {
           <FormItem>
             <FormLabel>Predefinição</FormLabel>
             <Select
+              disabled={disabled}
               onValueChange={field.onChange}
               value={field.value} // Use value instead of defaultValue
             >

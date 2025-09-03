@@ -10,14 +10,12 @@ import {
 } from "../../ui/dialog";
 import { Form } from "../../ui/form";
 import { FormProvider, useFormContext } from "react-hook-form";
-import { newDeviceType } from "../new-device/validator";
-import { UseFormReturn } from "react-hook-form";
 
 interface DeviceDialogProps {
   trigger: ReactNode;
   title: string;
   description?: string;
-  onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
+  onSubmit?: (e?: React.BaseSyntheticEvent) => Promise<void>;
   children: ReactNode;
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -52,7 +50,7 @@ export const DeviceDialog = ({
           </DialogHeader>
 
           <Form {...form}>
-            <form onSubmit={onSubmit} className="space-y-6">
+            <form onSubmit={onSubmit} className="space-y-6 text-muted-foreground">
               {children}
             </form>
           </Form>
