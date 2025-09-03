@@ -33,7 +33,7 @@ export default function NewDeviceDialog() {
     <DeviceDialog
       trigger={<Button>Adicionar dispositivo</Button>}
       title="Novo dispositivo"
-      description="Escolha um nome para sua colmeia e selecione uma predefinição para configurar o dispositivo."
+      description="Primeiro, escolha um nome para sua colmeia, e depois, selecione uma predefinição"
       onSubmit={onSubmit}
       open={open}
       onOpenChange={handleDialogChange}

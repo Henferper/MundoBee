@@ -30,13 +30,6 @@ export default function ViewDeviceDialog({ device }: ViewDeviceDialogProps) {
   const [open, setOpen] = useState(false);
   const form = useEditDeviceForm(device);
 
-  const handleDialogChange = (isOpen: boolean) => {
-    setOpen(isOpen);
-    if (!isOpen) {
-      form.reset();
-    }
-  };
-
   return (
     <FormProvider {...form}>
       <DeviceDialog
@@ -44,7 +37,7 @@ export default function ViewDeviceDialog({ device }: ViewDeviceDialogProps) {
         title="Detalhes do dispositivo"
         description="Informações do dispositivo selecionado."
         open={open}
-        onOpenChange={handleDialogChange}
+        onOpenChange={() => setOpen(!open)}
       >
         <BaseDeviceForm disabled={true}/>
         <div className="flex flex-row justify-between items-center">
