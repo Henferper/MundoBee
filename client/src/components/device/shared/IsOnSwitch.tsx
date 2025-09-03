@@ -20,7 +20,7 @@ export function IsOnSwitch({ disabled }: { disabled?: boolean }) {
               name="is_active"
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center gap-x-3">
-                    <FormLabel>Ativo</FormLabel>
+                    <FormLabel>Ligado</FormLabel>
                   <FormControl>
                     <Switch
                       className="data-[state=checked]:bg-green-500"
