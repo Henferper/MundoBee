@@ -8,34 +8,34 @@ import { CancelButton } from "../shared/CancelButton";
 import { useEditDeviceForm } from "./useEditDeviceForm";
 import { FormProvider } from "react-hook-form";
 import { IsOnSwitch } from "../shared/IsOnSwitch";
+import { Device } from "@/types";
 
-export default function EditDeviceDialog() {
+interface EditDeviceDialogProps {
+  device?: Device;
+}
+
+export default function EditDeviceDialog({ device }: EditDeviceDialogProps) {
   const [open, setOpen] = useState(false);
 
-  const form = useEditDeviceForm();
+  const form = useEditDeviceForm(device);
 
   const onSubmit = form.handleSubmit(async (data) => {
-          form.reset();
-      setOpen(false);
-
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    form.reset();
+    setOpen(false);
   });
 
   const handleDialogChange = (isOpen: boolean) => {
     setOpen(isOpen);
     if (!isOpen) {
-      setTimeout(() => {
-        form.reset();
-      }, 300);
+      form.reset();
     }
   };
-
-  const values = form.watch();
-  console.log(values)
 
   return (
     <FormProvider {...form}>
     <DeviceDialog
-      trigger={<Button>Adicionar dispositivo</Button>}
+      trigger={<Button size="sm" variant="outline">Editar</Button>}
       title="Editar dispositivo"
       onSubmit={onSubmit}
       open={open}

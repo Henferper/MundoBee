@@ -16,8 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../ui/select";
-import { newDeviceType } from "../new-device/validator";
-import { useFormContext, UseFormReturn } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 
 const PRESET_OPTIONS = [
@@ -30,8 +29,6 @@ const PRESET_OPTIONS = [
 
 export const BaseDeviceForm = () => {
   const form = useFormContext();
-
-  const { errors } = form.formState;
 
   return (
     <div className="space-y-6">

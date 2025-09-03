@@ -4,6 +4,7 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Device as DeviceType } from "@/types";
 import { io, Socket } from "socket.io-client";
+import EditDeviceDialog from "./device/edit-device/EditDeviceDialog";
 
 type DeviceProps = {
   device?: DeviceType;
@@ -149,9 +150,7 @@ export default function Device({ device, edit = false }: DeviceProps) {
           Ver Detalhes
         </Button>
         {edit && (
-          <Button size="sm" variant="outline">
-            Editar
-          </Button>
+          <EditDeviceDialog device={device} />
         )}
       </CardFooter>
     </Card>
