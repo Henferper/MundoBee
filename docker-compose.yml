@@ -111,7 +111,7 @@ services:
     ports:
       - ${FRONT_PORT}:${FRONT_PORT}
     volumes:
-      - ./client:/app
+      - ./client/src:/app/src
     restart: always
     networks:
       - frontend
