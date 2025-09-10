@@ -1,25 +1,19 @@
-# Etapa de build
-FROM node:18 AS build
+FROM node:18
 
 WORKDIR /app
+ENV NODE_ENV=production
 
+# Copia package.json e instala dependências
 COPY client/package*.json ./
 RUN npm install
 
-COPY client ./
+# Copia todo o código do client
+COPY client ./ 
+
+# Build do Next
 RUN npm run build
 
-# Etapa de produção
-FROM node:18-slim AS production
-
-WORKDIR /app
-
-COPY client/package*.json ./
-RUN npm install --production
-
-# Copia apenas o build e assets
-COPY --from=build /app/.next ./.next
-COPY --from=build /app/public ./public
-
 EXPOSE 3000
+
+# Comando para rodar a aplicação
 CMD ["npm", "start"]
