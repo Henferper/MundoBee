@@ -14,9 +14,12 @@ FROM node:18-slim AS production
 
 WORKDIR /app
 
-COPY --from=build /app ./
+COPY client/package*.json ./
+RUN npm install --production
 
-RUN npm prune --production
+# Copia apenas o build e assets
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public
 
 EXPOSE 3000
 CMD ["npm", "start"]
