@@ -19,4 +19,8 @@ COPY --from=build /app ./
 RUN npm prune --production
 
 EXPOSE 3000
-CMD ["npm", "start"]
+
+USER node
+
+# Comando para iniciar a aplicação
+CMD ["npm", "run", "dev"]
