@@ -6,41 +6,58 @@ import toast from "react-hot-toast";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/authContext";
 
 export default function Login() {
   const [error, setError] = useState<string | null>("");
   const [imageLoading, setImageLoading] = useState<boolean>(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [form, setForm] = useState({ usuario: "", email: "", senha: "", confirmacao: "" });
+  const [form, setForm] = useState({ fullName: "", email: "", password: "" });
+  const [confirmacao, setConfirmacao] = useState("");
   const router = useRouter();
+  const { signUp } = useAuth();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "confirmacao") {
+      setConfirmacao(value);
+    } else {
+      setForm({ ...form, [name]: value });
+    }
     setError("");
   }
 
-  function validarSenha(senha: string) {
+  function validarpassword(password: string) {
     const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-={}\[\]:;"'<>,.?/~`]).{6,}$/;
-    return regex.test(senha);
+    return regex.test(password);
   }
 
-  function handleSubmit(event: SyntheticEvent) {
+  async function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
     toast.remove();
-    if (!form.usuario || !form.email || !form.senha || !form.confirmacao) {
+    if (!form.fullName || !form.email || !form.password || !confirmacao) {
       setError("Preencha todos os campos");
       return;
     }
-    if (!validarSenha(form.senha)) {
-      setError("A senha deve ter pelo menos 6 caracteres, uma letra maiúscula e um caractere especial.");
+    if (!validarpassword(form.password)) {
+      setError("A password deve ter pelo menos 6 caracteres, uma letra maiúscula e um caractere especial.");
       return;
     }
-    if (form.senha !== form.confirmacao) {
-      setError("As senhas não coincidem");
+    if (form.password !== confirmacao) {
+      setError("As passwords não coincidem");
       return;
     }
-    toast.success("Cadastro realizado! (simulação)");
+    try {
+      const result = await signUp(form);
+      if (result.success) {
+        router.replace("/signin");
+      } else {
+        setError(result.message || "Erro ao cadastrar");
+      }
+    } catch (error) {
+      setError("Erro ao cadastrar");
+    }
   }
 
   return (
@@ -77,16 +94,16 @@ export default function Login() {
             onSubmit={handleSubmit}
           >
             <div className="space-y-2 text-black">
-              <Label htmlFor="usuario" className={error ? "text-red-500" : ""}>
+              <Label htmlFor="fullName" className={error ? "text-red-500" : ""}>
                 Usuário
               </Label>
               <Input
-                id="usuario"
-                name="usuario"
+                id="fullName"
+                name="fullName"
                 placeholder="Seu nome de usuário"
                 required
                 type="text"
-                value={form.usuario}
+                value={form.fullName}
                 onChange={handleChange}
                 className={error ? "border-spacing-5 border-red-500 bg-white text-black" : "bg-white text-black"}
               />
@@ -107,16 +124,16 @@ export default function Login() {
               />
             </div>
             <div className="space-y-2text-black text-black">
-              <Label htmlFor="senha" className={error ? "text-red-500" : ""}>
-                Senha
+              <Label htmlFor="password" className={error ? "text-red-500" : ""}>
+                password
               </Label>
               <div className="relative">
                 <Input
-                  id="senha"
-                  name="senha"
+                  id="password"
+                  name="password"
                   required
                   type={showPassword ? "text" : "password"}
-                  value={form.senha}
+                  value={form.password}
                   onChange={handleChange}
                   className={error ? "border-spacing-5 border-red-500 bg-white text-black pr-10" : "bg-white text-black pr-10"}
                 />
@@ -125,7 +142,7 @@ export default function Login() {
                   onClick={() => setShowPassword((prev) => !prev)}
                   className="absolute inset-y-0 right-2 flex items-center px-2 focus:outline-none"
                   tabIndex={-1}
-                  aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                  aria-label={showPassword ? "Ocultar password" : "Mostrar password"}
                 >
                   {showPassword ? (
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-600">
@@ -143,7 +160,7 @@ export default function Login() {
             </div>
             <div className="space-y-2 text-black">
               <Label htmlFor="confirmacao" className={error ? "text-red-500" : ""}>
-                Confirmação de Senha
+                Confirmação de password
               </Label>
               <div className="relative">
                 <Input
@@ -151,7 +168,7 @@ export default function Login() {
                   name="confirmacao"
                   required
                   type={showConfirmPassword ? "text" : "password"}
-                  value={form.confirmacao}
+                  value={confirmacao}
                   onChange={handleChange}
                   className={error ? "border-spacing-5 border-red-500 bg-white text-black pr-10" : "bg-white text-black pr-10"}
                 />
@@ -160,7 +177,7 @@ export default function Login() {
                   onClick={() => setShowConfirmPassword((prev) => !prev)}
                   className="absolute inset-y-0 right-2 flex items-center px-2 focus:outline-none"
                   tabIndex={-1}
-                  aria-label={showConfirmPassword ? "Ocultar senha" : "Mostrar senha"}
+                  aria-label={showConfirmPassword ? "Ocultar password" : "Mostrar password"}
                 >
                   {showConfirmPassword ? (
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-600">
