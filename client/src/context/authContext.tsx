@@ -27,6 +27,9 @@ interface AuthContextProps {
     e: any
   ) => Promise<{ success: boolean; message?: string; error?: any }>;
   signOut: () => void;
+  signUp: (
+    data: { fullName: string; email: string; password: string;}
+  ) => Promise<{ success: boolean; message?: string; error?: any }>;
 }
 
 const SECRET_KEY =
@@ -65,7 +68,7 @@ export function AuthProvider({ children }: Readonly<AuthProviderProps>) {
         console.log(response);
 
         if (response?.statusCode === 403) {
-          reject({ success: false, message: "Email ou senha incorretos." });
+          reject({ success: false, message: "Email ou password incorretos." });
         }
 
         const token: string = response?.access_token;
@@ -91,6 +94,44 @@ export function AuthProvider({ children }: Readonly<AuthProviderProps>) {
     });
   };
 
+  const signUp = (
+    data: { fullName: string; email: string; password: string;}
+  ): Promise<{ success: boolean; message?: string; error?: any }> => {
+    return new Promise(async (resolve, reject) => {
+      const API = new ApiRequest();
+      try {
+        const response: AuthToken = await API.ApiRequest("auth/local/signup", {
+          fullName: data.fullName,
+          email: data.email,
+          password: data.password,
+        });
+
+        if (response?.statusCode && response.statusCode !== 201) {
+          reject({ success: false, message: (response as any).message || "Erro ao cadastrar." });
+        }
+
+        const token: string = response?.access_token;
+        if (token) {
+          setAuthTokens(token);
+          const userData = {
+            ...jwtDecode(token),
+          } as User;
+          setUser(userData);
+          const encryptedData = encryptData(JSON.stringify(response));
+          Cookies.set("session", encryptedData, {
+            secure: true,
+            sameSite: "strict",
+          });
+          resolve({ success: true });
+        } else {
+          reject({ success: false, message: "Cadastro falhou." });
+        }
+      } catch (error: any) {
+        reject({ success: false, message: "Erro no servidor.", error });
+      }
+    });
+  };
+
   const signOut = () => {
     setAuthTokens(null);
     setUser(null);
@@ -106,7 +147,6 @@ export function AuthProvider({ children }: Readonly<AuthProviderProps>) {
       setAuthTokens(parsedSession.access_token);
       const userData = {
         ...jwtDecode(parsedSession.access_token),
-        // permission: parsedSession.permission,
       } as User;
       setUser(userData);
     }
@@ -115,7 +155,7 @@ export function AuthProvider({ children }: Readonly<AuthProviderProps>) {
 
   return (
     <AuthContext.Provider
-      value={{ signIn, signOut, user, isLoading }}
+  value={{ signIn, signOut, signUp, user, isLoading }}
     >
       {children}
     </AuthContext.Provider>
