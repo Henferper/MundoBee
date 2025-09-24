@@ -10,7 +10,7 @@ const char* ssid = "WIFI_ADM_CFP402";
 const char* password = "ac4ce0ss2";
 
 // Configurações do MQTT
-const char* mqtt_server = "10.109.3.178";
+const char* mqtt_server = "10.109.3.167";
 const char* mqtt_topic = "device/7c05b858-3f77-4c52-a226-7887b7339e16";
 
 char* peltier_status = " ";
