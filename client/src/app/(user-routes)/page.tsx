@@ -11,6 +11,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
+import { MetricsAreaChart } from "@/components/charts/MetricsAreaChart";
+import { mockMetrics } from "@/components/mock/metrics";
+
 import { Metric } from "@/types/Metric";
 import { useTheme } from "next-themes";
 import { Label } from "@/components/ui/label";
@@ -95,9 +99,9 @@ export default function Dashboard() {
   const { data, error, isLoading } = useQuery({
     queryKey: [
       "metricsData",
-      selectedDevice, 
-      value.from?.toISOString(), 
-      value.to?.toISOString()
+      selectedDevice,
+      value.from?.toISOString(),
+      value.to?.toISOString(),
     ],
     queryFn: async () => {
       if (!selectedDevice || !value.from || !value.to) {
@@ -285,12 +289,12 @@ export default function Dashboard() {
         </div>
         <Card className="flex flex-col gap-4 p-5">
           <Label className="text-2xl">Métricas</Label>
-          <AreaChartHero
-            data={data?.metrics.map((metric: any) => ({
-              ...metric,
-              "Temperatura Interna": metric.temperature,
-              "Temperatura Externa": metric.outsideTemp,
-              "Temperatura Exterior": metric.externalTemp,
+          <MetricsAreaChart
+            data={mockMetrics.map((m) => ({
+              ...m,
+              "Temperatura Interna": m.temperature,
+              "Temperatura Externa": m.outsideTemp,
+              "Temperatura Exterior": m.externalTemp,
             }))}
             categories={[
               "Temperatura Interna",
@@ -298,15 +302,15 @@ export default function Dashboard() {
               "Temperatura Exterior",
             ]}
             index="timestamp"
-            valueFormatter={tempFormatter}
-            title="Temperatura"
+            title="Temperatura (Mock)"
+            valueFormatter={(v) => `${v}°C`}
           />
-          <AreaChartHero
-            data={data?.metrics.map((metric: any) => ({
-              ...metric,
-              "Umidade Interna": metric.humidity,
-              "Umidade Externa": metric.outsideHumidity,
-              "Umidade Exterior": metric.externalHumidity,
+          <MetricsAreaChart
+            data={mockMetrics.map((m) => ({
+              ...m,
+              "Umidade Interna": m.humidity,
+              "Umidade Externa": m.outsideHumidity,
+              "Umidade Exterior": m.externalHumidity,
             }))}
             categories={[
               "Umidade Interna",
@@ -314,9 +318,37 @@ export default function Dashboard() {
               "Umidade Exterior",
             ]}
             index="timestamp"
-            valueFormatter={humidityFormatter}
-            title="Umidade"
+            title="Umidade (Mock)"
+            valueFormatter={(v) => `${v}%`}
           />
+          <MetricsAreaChart
+            data={mockMetrics.map((m) => ({
+              ...m,
+              "Ruído Interno": m.noise,
+              "Ruído Enclausuramento": m.enclosureNoise,
+              "Ruído Externo": m.externalNoise,
+            }))}
+            categories={[
+              "Ruído Interno",
+              "Ruído Enclausuramento",
+              "Ruído Externo",
+            ]}
+            index="timestamp"
+            title="Níveis de Ruído (Mock)"
+            valueFormatter={(v) => `${v} dB`}
+          />
+          <MetricsAreaChart
+            data={mockMetrics.map((m) => ({
+              ...m,
+              "Peltier - Lado Quente": m.peltierHot,
+              "Peltier - Lado Frio": m.peltierCold,
+            }))}
+            categories={["Peltier - Lado Quente", "Peltier - Lado Frio"]}
+            index="timestamp"
+            title="Temperatura Peltier (Mock)"
+            valueFormatter={(v) => `${v}°C`}
+          />
+
         </Card>
       </div>
     </div>
